@@ -32,15 +32,29 @@ src/content/diary/
 
 ```json
 {
-  "title": "网站诞生日记",
-  "date": "2026-04-20",
-  "slug": "2026-04-20-website-birthday",
-  "summary": "这是我的个人日记站上线的第一天。",
-  "tags": ["日记", "建站", "记录"],
-  "body_markdown": "今天是一个值得庆祝的日子。\n\n我终于有了一个真正属于自己的公开角落。",
-  "cover_image_path": "/images/2026/04/2026-04-20-cover.svg",
+  "title": "把网站真正跑起来的一天",
+  "date": "2026-04-21",
+  "slug": "2026-04-21-daily-review-site-online",
+  "summary": "今天把个人日记站从本地推进到了可公开访问的状态，也补齐了自动发布链路。",
+  "tags": ["日记", "复盘", "建站"],
+  "body_markdown": "## 今日完成\n\n- 完成 Astro 日记站基础页面\n- 修复 Vercel 部署问题\n- 接通 GitHub 自动部署\n\n## 卡点与问题\n\n- WSL 和 Windows 混合 node_modules 导致本地构建不干净\n- Astro content collection 的 slug 行为和预期不完全一致\n\n## 今天的感受\n\n从方案走到真的上线，中间有不少小坑，但一步一步修通之后，心里会很稳。\n\n## 明天的一步\n\n把每日自动生成 JSON 的流程真正跑起来，减少手工维护成本。",
+  "cover_image_path": "/images/default-cover.svg",
   "draft": false
 }
+```
+
+## 每日复盘 Prompt 模板
+
+固定模板文件：
+
+```text
+prompts/generate_review_prompt.txt
+```
+
+示例 JSON：
+
+```text
+examples/example-review.json
 ```
 
 ## 自动脚本
