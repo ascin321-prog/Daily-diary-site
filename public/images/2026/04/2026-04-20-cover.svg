@@ -1,0 +1,8 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#F5EEDF"/>
+  <rect x="88" y="88" width="1024" height="544" rx="36" fill="#FBF8F3"/>
+  <circle cx="930" cy="190" r="74" fill="#E7D6C0"/>
+  <path d="M120 490C200 430 290 398 376 406C470 414 532 498 640 504C760 510 816 426 930 412C1016 402 1080 428 1110 448V632H120V490Z" fill="#E9DCCB"/>
+  <text x="132" y="220" fill="#5D4D41" font-size="58" font-family="serif">网站诞生日记</text>
+  <text x="132" y="300" fill="#857365" font-size="30" font-family="serif">第一篇公开日记，写给开始的自己</text>
+</svg>

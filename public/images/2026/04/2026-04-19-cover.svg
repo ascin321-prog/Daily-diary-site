@@ -1,0 +1,8 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#EFE7DC"/>
+  <rect x="84" y="84" width="1032" height="552" rx="36" fill="#FAF7F2"/>
+  <circle cx="970" cy="170" r="48" fill="#D8CAB9"/>
+  <path d="M80 560C214 500 334 490 468 538C560 570 660 582 758 546C850 512 942 470 1120 520V636H80V560Z" fill="#DDD0C1"/>
+  <text x="130" y="220" fill="#5F5145" font-size="56" font-family="serif">春夜里的一点安静</text>
+  <text x="130" y="298" fill="#857568" font-size="30" font-family="serif">把平静的瞬间留给未来的自己</text>
+</svg>

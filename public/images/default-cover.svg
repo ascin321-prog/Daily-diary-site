@@ -1,0 +1,8 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#EFE6DA"/>
+  <rect x="80" y="80" width="1040" height="560" rx="32" fill="#F8F4EE"/>
+  <circle cx="1000" cy="180" r="56" fill="#E6D3BE"/>
+  <path d="M0 560C160 500 280 500 420 548C532 586 664 602 812 548C943 500 1071 500 1200 556V720H0V560Z" fill="#E2D2C0"/>
+  <text x="120" y="230" fill="#6A584B" font-size="54" font-family="serif">Daily Diary</text>
+  <text x="120" y="310" fill="#8A7768" font-size="28" font-family="serif">留白、安静、持续记录</text>
+</svg>

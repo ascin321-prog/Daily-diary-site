@@ -1,0 +1,179 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '个人日记',
+  description = '一个温暖、克制、长期可维护的个人日记网站'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <style is:global>
+      :root {
+        --bg: #f6f1e8;
+        --card: rgba(255, 252, 247, 0.9);
+        --text: #3c342d;
+        --text-soft: #7b6e62;
+        --border: rgba(120, 103, 87, 0.12);
+        --shadow: 0 10px 30px rgba(92, 75, 60, 0.08);
+        --radius-xl: 28px;
+        --radius-lg: 22px;
+        --max-width: 980px;
+      }
+
+      * { box-sizing: border-box; }
+      html {
+        font-family: "Noto Serif SC", "Source Han Serif SC", "PingFang SC", "Microsoft YaHei", serif;
+        color: var(--text);
+        background: linear-gradient(180deg, #f7f2ea 0%, #f2ece3 100%);
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        line-height: 1.9;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      .page-shell {
+        width: min(var(--max-width), calc(100% - 32px));
+        margin: 0 auto;
+        padding: 40px 0 72px;
+      }
+      .site-header { margin-bottom: 28px; }
+      .site-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin: 0 0 8px;
+        letter-spacing: 0.02em;
+      }
+      .site-subtitle {
+        margin: 0;
+        color: var(--text-soft);
+        font-size: 0.98rem;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+      }
+      .diary-grid {
+        display: grid;
+        gap: 24px;
+      }
+      .diary-item {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 22px;
+        padding: 20px;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .diary-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 36px rgba(92, 75, 60, 0.12);
+      }
+      .thumb {
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        background: #efe7db;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .meta {
+        color: var(--text-soft);
+        font-size: 0.95rem;
+      }
+      .diary-title {
+        margin: 6px 0 10px;
+        font-size: 1.5rem;
+      }
+      .summary {
+        margin: 0;
+        color: #5a4f45;
+      }
+      .tag-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .tag {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #f1e7d9;
+        color: #6b5a49;
+        font-size: 0.85rem;
+      }
+      .article {
+        padding: 28px;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-soft);
+        margin-bottom: 18px;
+      }
+      .article h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        line-height: 1.3;
+      }
+      .article-cover {
+        margin: 24px 0 28px;
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: #efe4d6;
+      }
+      .article-cover img {
+        width: 100%;
+        max-height: 520px;
+        object-fit: cover;
+      }
+      .article-content {
+        font-size: 1.08rem;
+      }
+      .article-content p {
+        margin: 1.1em 0;
+      }
+      .empty-state {
+        padding: 40px 28px;
+      }
+      @media (max-width: 720px) {
+        .page-shell {
+          width: min(100% - 20px, var(--max-width));
+          padding-top: 24px;
+        }
+        .diary-item {
+          grid-template-columns: 1fr;
+        }
+        .article {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page-shell">
+      <slot />
+    </main>
+  </body>
+</html>

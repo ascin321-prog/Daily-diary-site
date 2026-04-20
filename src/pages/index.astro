@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const diaryEntries = (await getCollection('diary', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+---
+
+<BaseLayout title="个人日记" description="每天一篇的 Markdown 日记站">
+  <header class="site-header">
+    <h1 class="site-title">个人日记</h1>
+    <p class="site-subtitle">一页一日，克制记录，安静生长。</p>
+  </header>
+
+  {
+    diaryEntries.length > 0 ? (
+      <section class="diary-grid">
+        {diaryEntries.map((entry) => (
+          <a class="card diary-item" href={`/diary/${entry.data.slug}/`}>
+            <div class="thumb">
+              <img
+                src={entry.data.cover || '/images/default-cover.svg'}
+                alt={entry.data.title}
+                loading="lazy"
+              />
+            </div>
+
+            <div>
+              <div class="meta">{formatDate(entry.data.date)}</div>
+              <h2 class="diary-title">{entry.data.title}</h2>
+              <p class="summary">{entry.data.summary}</p>
+
+              {entry.data.tags?.length > 0 && (
+                <div class="tag-list">
+                  {entry.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </section>
+    ) : (
+      <section class="card empty-state">
+        <h2>还没有已发布的日记</h2>
+        <p>你可以先在 src/content/diary/ 中新增一篇 Markdown 文件。</p>
+      </section>
+    )
+  }
+</BaseLayout>

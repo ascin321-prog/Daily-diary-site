@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const diaryEntries = await getCollection('diary', ({ data }) => !data.draft);
+
+  return diaryEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+---
+
+<BaseLayout title={`${entry.data.title} | 个人日记`} description={entry.data.summary}>
+  <article class="card article">
+    <a class="back-link" href="/">← 返回首页</a>
+
+    <div class="meta">{formatDate(entry.data.date)}</div>
+    <h1>{entry.data.title}</h1>
+
+    {entry.data.cover && (
+      <div class="article-cover">
+        <img src={entry.data.cover} alt={entry.data.title} />
+      </div>
+    )}
+
+    {entry.data.tags?.length > 0 && (
+      <div class="tag-list">
+        {entry.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <div class="article-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
