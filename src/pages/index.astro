@@ -23,7 +23,7 @@ const formatDate = (date: Date) =>
     diaryEntries.length > 0 ? (
       <section class="diary-grid">
         {diaryEntries.map((entry) => (
-          <a class="card diary-item" href={`/diary/${entry.data.slug}/`}>
+          <a class="card diary-item" href={`/diary/${entry.slug}/`}>
             <div class="thumb">
               <img
                 src={entry.data.cover || '/images/default-cover.svg'}
