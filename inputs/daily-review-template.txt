@@ -1,0 +1,34 @@
+今天日期：{{date}}
+
+请基于下面这些素材，为个人公开日记站生成一篇“每日复盘”JSON。
+
+今日素材：
+- 
+- 
+- 
+
+今天的推进：
+- 
+- 
+
+卡点与问题：
+- 
+- 
+
+今天的感受：
+- 
+
+明天最重要的一步：
+- 
+
+要求：
+1. 只输出合法 JSON，不要输出解释，不要加代码块。
+2. JSON 字段必须包含：title、date、slug、summary、tags、body_markdown、cover_image_path、draft。
+3. body_markdown 必须包含四段：
+   - 今日完成
+   - 卡点与问题
+   - 今天的感受
+   - 明天的一步
+4. 内容适合公开发布，不暴露隐私。
+5. 如果没有专用封面图，cover_image_path 使用 /images/default-cover.svg。
+6. draft 默认 false。

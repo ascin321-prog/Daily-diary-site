@@ -51,10 +51,28 @@ src/content/diary/
 prompts/generate_review_prompt.txt
 ```
 
+素材输入模板：
+
+```text
+inputs/daily-review-template.txt
+```
+
+素材输入示例：
+
+```text
+inputs/daily-review-example.txt
+```
+
 示例 JSON：
 
 ```text
 examples/example-review.json
+```
+
+完整工作流文档：
+
+```text
+docs/openclaw-daily-review-workflow.md
 ```
 
 ## 自动脚本
