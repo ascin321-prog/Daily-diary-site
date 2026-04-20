@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://example-diary-site.vercel.app'
+  site: 'https://daily-diary-site.vercel.app'
 });
