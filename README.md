@@ -77,19 +77,25 @@ docs/openclaw-daily-review-workflow.md
 
 ## 自动脚本
 
-### 1. 占位自动生成
+### 1. 全自动生成每日复盘并发布
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_daily.ps1 -ProjectRoot "D:\projects\daily-diary-site"
 ```
 
-### 2. 使用 JSON 生成并发布
+### 2. 单独生成每日复盘 JSON
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\generate_review_json.ps1 -ProjectRoot "D:\projects\daily-diary-site"
+```
+
+### 3. 使用现成 JSON 生成并发布
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\run_daily.ps1 -ProjectRoot "D:\projects\daily-diary-site" -InputJsonPath "D:\projects\daily-diary-site\.tmp\2026-04-21-entry.json"
 ```
 
-### 3. 单独从 JSON 渲染 Markdown
+### 4. 单独从 JSON 渲染 Markdown
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\render_entry_from_json.ps1 -JsonPath "D:\projects\daily-diary-site\.tmp\2026-04-21-entry.json" -ProjectRoot "D:\projects\daily-diary-site"
