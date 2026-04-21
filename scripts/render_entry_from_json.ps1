@@ -100,15 +100,12 @@ if (-not (Test-Path -LiteralPath $diaryDir)) {
     New-Item -ItemType Directory -Path $diaryDir -Force | Out-Null
 }
 
-$filePath = Join-Path $diaryDir ("$slug.md")
-$counter = 2
-while ((Test-Path -LiteralPath $filePath) -and ((Resolve-Path -LiteralPath $filePath).Path -notlike "*$slug.md")) {
-    $filePath = Join-Path $diaryDir ("$slug-$counter.md")
-    $counter++
+$existingSameDay = Get-ChildItem -LiteralPath $diaryDir -Filter "$($entry.date)-*.md" | Sort-Object Name
+if ($existingSameDay.Count -gt 0) {
+    $filePath = $existingSameDay[0].FullName
 }
-
-if (Test-Path -LiteralPath $filePath) {
-    Fail-AndExit "同名日记已存在: $filePath"
+else {
+    $filePath = Join-Path $diaryDir ("$slug.md")
 }
 
 $cover = $entry.cover_image_path
@@ -129,6 +126,7 @@ $markdown = @"
 ---
 title: "$($entry.title)"
 date: "$($entry.date)"
+slug: "$slug"
 summary: "$($entry.summary)"
 cover: "$cover"
 tags: $tagsText

@@ -56,9 +56,8 @@ if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug):
 
 diary_dir = project_root / 'src' / 'content' / 'diary'
 diary_dir.mkdir(parents=True, exist_ok=True)
-file_path = diary_dir / f'{slug}.md'
-if file_path.exists():
-    raise SystemExit(f'同名日记已存在: {file_path}')
+existing_same_day = sorted(diary_dir.glob(f"{entry['date']}-*.md"))
+file_path = existing_same_day[0] if existing_same_day else (diary_dir / f'{slug}.md')
 cover = entry.get('cover_image_path') or '/images/default-cover.svg'
 if not cover.startswith('/images/'):
     raise SystemExit('cover_image_path 必须以 /images/ 开头')
