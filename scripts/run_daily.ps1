@@ -53,6 +53,14 @@ if ([string]::IsNullOrWhiteSpace($jsonPathToUse)) {
     }
 }
 
+$coverScript = Join-Path $ProjectRoot "scripts\generate_cover_svg.ps1"
+if (Test-Path -LiteralPath $coverScript) {
+    & $coverScript -ProjectRoot $ProjectRoot -JsonPath $jsonPathToUse | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "封面生成失败。"
+    }
+}
+
 $filePath = & (Join-Path $ProjectRoot "scripts\render_entry_from_json.ps1") -JsonPath $jsonPathToUse -ProjectRoot $ProjectRoot
 if ($LASTEXITCODE -ne 0) {
     throw "JSON 渲染 Markdown 失败。"

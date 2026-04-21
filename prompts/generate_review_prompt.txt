@@ -13,13 +13,13 @@
 
 【字段要求】
 输出 JSON 必须包含以下字段：
-- title: 字符串，适合作为当天复盘标题
+- title: 字符串，适合作为当天复盘标题，不要带日期前缀，直接概括内容
 - date: yyyy-MM-dd
 - slug: 小写英文、数字、连字符，且带日期前缀
 - summary: 120 字以内摘要
 - tags: 3 到 5 个中文标签数组
 - body_markdown: 合法 Markdown 正文
-- cover_image_path: 没有专用图片时填写 /images/default-cover.svg
+- cover_image_path: 如果后续脚本能自动生成封面图，可先留默认值或合理 `/images/...` 路径；不要编造不存在的外部图片
 - draft: 布尔值，默认 false
 
 【body_markdown 模板】
@@ -47,5 +47,7 @@ body_markdown 必须遵循这种结构：
 【额外要求】
 - 如果素材不足，也要尽量写得真实具体，不要用空话凑字数。
 - summary 要与正文一致，不能夸大。
-- slug 必须稳定、简洁、可读，例如：2026-04-21-daily-review-site-online
-- 如果没有封面图，cover_image_path 固定输出 /images/default-cover.svg
+- 标题不要写成 `2026-04-21 ...` 这种形式。
+- slug 必须稳定、简洁、可读，例如：`2026-04-21-workflow-stabilized`
+- 如果上下文中包含多个 agent 的近两日进展，要优先提炼成一篇统一复盘，而不是只盯主 agent。
+- 如果没有真实可用图片能力，允许回退到默认封面或由后处理脚本生成简洁 SVG 封面。
