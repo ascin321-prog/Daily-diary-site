@@ -10,5 +10,5 @@
   <circle cx="1450" cy="760" r="220" fill="#8a6f52" fill-opacity="0.08"/>
   <rect x="72" y="92" width="920" height="420" rx="36" fill="#fffaf4" fill-opacity="0.72"/>
   <text x="80" y="130" font-size="18" fill="#8a6f52" font-family="PingFang SC, Microsoft YaHei, sans-serif">2026-04-22 · 自动生成封面</text>
-  <text x="80" y="180" font-size="34" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">把同日更新逻辑彻底收紧</text><text x="80" y="226" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">今天主要把每日复盘的同日更新逻辑收紧到单</text><text x="80" y="272" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">篇模式，并重新走了一遍部署验证。链路更稳</text>
+  <text x="80" y="180" font-size="34" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">把复盘视角从单点改成全局</text><text x="80" y="226" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">今天主要在修正每日复盘的生成视角，不再只</text><text x="80" y="272" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">偏向主 agent，而是默认吸纳所有 a</text>
 </svg>
