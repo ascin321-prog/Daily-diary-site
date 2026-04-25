@@ -16,19 +16,28 @@ PROMPT_FILE="$PROJECT_ROOT/prompts/generate_review_prompt.txt"
 [[ -f "$PROMPT_FILE" ]] || { echo "缺少 prompt 模板: $PROMPT_FILE" >&2; exit 1; }
 
 WORKSPACE_ROOT="/home/barry/.openclaw/workspace"
-PROGRESS_CONTENT="$(cat "$WORKSPACE_ROOT/PROGRESS.md" 2>/dev/null || true)"
-LONG_MEMORY_CONTENT="$(cat "$WORKSPACE_ROOT/MEMORY.md" 2>/dev/null || true)"
-TODAY_MEMORY="$(cat "$WORKSPACE_ROOT/memory/${DATE_STRING}.md" 2>/dev/null || true)"
-YESTERDAY_MEMORY="$(cat "$WORKSPACE_ROOT/memory/${YESTERDAY}.md" 2>/dev/null || true)"
-GIT_LOG="$(git -C "$PROJECT_ROOT" log --pretty=format:'%h %ad %s' --date=short -n 5 2>/dev/null || true)"
-GIT_STATUS="$(git -C "$PROJECT_ROOT" status --short 2>/dev/null || true)"
-AGENT_ACTIVITY="$(python3 - "$WORKSPACE_ROOT" "$DATE_STRING" "$YESTERDAY" <<'PY'
+
+limit_chars() {
+  local input="$1"
+  local max_chars="$2"
+  printf '%s' "$input" | python3 -c 'import sys; max_chars=int(sys.argv[1]); text=sys.stdin.read(); sys.stdout.write(text if len(text) <= max_chars else text[:max_chars] + "\n\n[truncated]")' "$max_chars"
+}
+
+PROGRESS_CONTENT_RAW="$(cat "$WORKSPACE_ROOT/PROGRESS.md" 2>/dev/null || true)"
+LONG_MEMORY_CONTENT_RAW="$(cat "$WORKSPACE_ROOT/MEMORY.md" 2>/dev/null || true)"
+TODAY_MEMORY_RAW="$(cat "$WORKSPACE_ROOT/memory/${DATE_STRING}.md" 2>/dev/null || true)"
+YESTERDAY_MEMORY_RAW="$(cat "$WORKSPACE_ROOT/memory/${YESTERDAY}.md" 2>/dev/null || true)"
+GIT_LOG_RAW="$(git -C "$PROJECT_ROOT" log --pretty=format:'%h %ad %s' --date=short -n 5 2>/dev/null || true)"
+GIT_STATUS_RAW="$(git -C "$PROJECT_ROOT" status --short 2>/dev/null || true)"
+AGENT_ACTIVITY_RAW="$(python3 - "$WORKSPACE_ROOT" "$DATE_STRING" "$YESTERDAY" <<'PY'
 from pathlib import Path
 import sys
 workspace = Path(sys.argv[1])
 days = sys.argv[2:]
 agents_root = workspace / 'agents'
 blocks = []
+char_budget = 18000
+used = 0
 if agents_root.exists():
     for agent_dir in sorted(agents_root.iterdir()):
         if not agent_dir.is_dir():
@@ -48,17 +57,32 @@ if agents_root.exists():
             continue
         block = [f'### agent: {agent_dir.name}']
         if active_progress:
-            lines = [line for line in progress_text.splitlines() if line.strip()][:30]
+            lines = [line for line in progress_text.splitlines() if line.strip()][:18]
             block.append('[PROGRESS]')
             block.extend(lines)
-        for name, text in recent_mems[:2]:
-            lines = [line for line in text.splitlines() if line.strip()][:36]
+        for name, text in recent_mems[:1]:
+            lines = [line for line in text.splitlines() if line.strip()][:20]
             block.append(f'[MEMORY {name}]')
             block.extend(lines)
-        blocks.append('\n'.join(block))
+        block_text = '\n'.join(block)
+        if used + len(block_text) > char_budget:
+            remain = char_budget - used
+            if remain > 200:
+                blocks.append(block_text[:remain] + '\n[truncated]')
+            break
+        blocks.append(block_text)
+        used += len(block_text) + 2
 print('\n\n'.join(blocks))
 PY
 )"
+
+PROGRESS_CONTENT="$(limit_chars "$PROGRESS_CONTENT_RAW" 3000)"
+LONG_MEMORY_CONTENT="$(limit_chars "$LONG_MEMORY_CONTENT_RAW" 2000)"
+TODAY_MEMORY="$(limit_chars "$TODAY_MEMORY_RAW" 5000)"
+YESTERDAY_MEMORY="$(limit_chars "$YESTERDAY_MEMORY_RAW" 3000)"
+GIT_LOG="$(limit_chars "$GIT_LOG_RAW" 1200)"
+GIT_STATUS="$(limit_chars "$GIT_STATUS_RAW" 1200)"
+AGENT_ACTIVITY="$(limit_chars "$AGENT_ACTIVITY_RAW" 12000)"
 
 PROMPT="$(cat "$PROMPT_FILE")
 
