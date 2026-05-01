@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7f1e8"/>
+      <stop offset="100%" stop-color="#eadfce"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1320" cy="170" r="140" fill="#8a6f52" fill-opacity="0.14"/>
+  <circle cx="1450" cy="760" r="220" fill="#8a6f52" fill-opacity="0.08"/>
+  <rect x="72" y="92" width="920" height="420" rx="36" fill="#fffaf4" fill-opacity="0.72"/>
+  <text x="80" y="130" font-size="18" fill="#8a6f52" font-family="PingFang SC, Microsoft YaHei, sans-serif">2026-05-01 · 自动生成封面</text>
+  <text x="80" y="180" font-size="34" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">在安静中整理系统边界</text><text x="80" y="226" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">今天没有新的活跃主线任务，主要是在前一天</text><text x="80" y="272" font-size="20" fill="#4b3f34" font-family="PingFang SC, Microsoft YaHei, sans-serif">的系统修复和多 agent 推进基础上做</text>
+</svg>
